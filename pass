@@ -23,7 +23,11 @@ if [ ! -d "$PASSWORD_STORE_DIR" ]; then
     exit 1
 fi
 
-main_entries=$(ls -1l "$PASSWORD_STORE_DIR" | grep -v ^d | cut -d' ' -f9 | sed 1d | rev | cut -c 5- | rev)
+# note:
+# in main computer `ls -l1` looks something like this:
+# -rw-r--r-- 1 clyde clyde         0 Feb 19 03:28  xclip-mlxcaiiqhx.png
+
+main_entries=$(ls -1l "$PASSWORD_STORE_DIR" | grep -v ^d | cut -d' ' -f10 | sed 1d | rev | cut -c 5- | rev)
 otp_entries=$(ls -1 "$PASSWORD_STORE_DIR"/otp | rev | cut -c 5- | rev)
 
 selected_entry=$(echo -e "$main_entries\n$otp_entries" | rofi -font "$font" -theme "$theme" -dmenu -p "Select pass entry")
