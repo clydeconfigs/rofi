@@ -27,7 +27,7 @@ fi
 # in main computer `ls -l1` looks something like this:
 # -rw-r--r-- 1 clyde clyde         0 Feb 19 03:28  xclip-mlxcaiiqhx.png
 
-main_entries=$(ls -1l "$PASSWORD_STORE_DIR" | grep -v ^d | cut -d' ' -f10 | sed 1d | rev | cut -c 5- | rev)
+main_entries=$(ls -1l "$PASSWORD_STORE_DIR" | grep -v ^d | awk '{ print $9 }' | sed 1d | rev | cut -c 5- | rev)
 otp_entries=$(ls -1 "$PASSWORD_STORE_DIR"/otp | rev | cut -c 5- | rev)
 
 selected_entry=$(echo -e "$main_entries\n$otp_entries" | rofi -font "$font" -theme "$theme" -dmenu -p "Select pass entry")
@@ -42,7 +42,8 @@ options=(
 password paste macro
 copy password to clipboard
 autotype password
-autotype entry name")
+autotype entry name
+full input (tabbing)")
 
 selected_option=$(rofi -font "$font" -theme "$theme" -dmenu -p "Select an option for $selected_entry" <<< "${options[@]}")
 
@@ -56,20 +57,23 @@ case "$selected_option" in
         echo "$selected_entry" | sed 's/^.*-//' | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v
         ;;
     "password paste macro")
-        { pass "$selected_entry" || pass otp otp/"$selected_entry"; } | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v
+        { pass otp otp/"$selected_entry" || pass "$selected_entry"; } | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v
         ;;
     "copy password to clipboard")
-       { pass "$selected_entry" || pass otp otp/"$selected_entry"; } | tr -d '\n' | xclip -sel c & sleep 10 && echo "" | xclip -sel c
+       { pass otp otp/"$selected_entry" || pass "$selected_entry"; } | tr -d '\n' | xclip -sel c & sleep 10 && echo "" | xclip -sel c
         ;;
     "autotype password")
         echo "$selected_entry"
-        { pass "$selected_entry" || pass otp otp/"$selected_entry"; } | xdotool type --clearmodifiers --delay 50 --file -
+        { pass otp otp/"$selected_entry" || pass "$selected_entry"; } | xdotool type --clearmodifiers --delay 50 --file -
         ;;
     "entry name copy and paste macro")
         echo "$selected_entry" | tr -d '\n' | sed 's/^.*-//' | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v
         ;;
     "autotype entry name")
         echo "$selected_entry" | sed 's/^.*-//' | tr -d '\n'| xdotool type --clearmodifiers --delay 8 --file -
+        ;;
+    "full input (tabbing)")
+        echo "$selected_entry" | sed 's/^.*-//' | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v && xdotool key Tab && pass "$selected_entry" | tr -d '\n' | xclip -sel c && xdotool key ctrl+shift+v
         ;;
 esac
 
