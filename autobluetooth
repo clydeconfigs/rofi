@@ -20,17 +20,17 @@ source $HOME/Media/Code/rofi/rofi_vars
 #bluetoothctl connect $headset_mac
 
 if ! bluetoothctl show | grep -q "Powered: yes"; then
-    rofi -font 'Comic Mono 18' -theme "$theme" -e "Bluetooth is not enabled. Please enable Bluetooth and try again."
+    rofi -font "$font" -theme "$theme" -e "Bluetooth is not enabled. Please enable Bluetooth and try again."
     exit 1
 fi
 
 headset_mac=$(bluetoothctl devices | grep -Eo "([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})" | head -1)
 
 if [ -z "$headset_mac" ]; then
-    rofi -font 'Comic Mono 18' -theme "$theme" -e "No Bluetooth devices found. Please make sure your headset is discoverable."
+    rofi -font "$font" -theme "$theme" -e "No Bluetooth devices found. Please make sure your headset is discoverable."
     exit 1
 fi
 
-selected_headset=$(bluetoothctl devices | rofi -dmenu -font 'Comic Mono 18' -theme "$theme" -p "Select Bluetooth headset:" | grep -Eo "([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})")
+selected_headset=$(bluetoothctl devices | rofi -dmenu -font "$font" -theme "$theme" -p "Select Bluetooth headset" | grep -Eo "([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})")
 
 bluetoothctl connect "$selected_headset"
