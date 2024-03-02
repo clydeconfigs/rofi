@@ -34,8 +34,8 @@ notify='false'
 help_color=""
 clip=primary
 clip_clear=15
-default_user="${ROFI_PASS_DEFAULT_USER-$(whoami)}"
-default_user2=john_doe
+default_user=""
+default_user2=""
 password_length=12
 fix_layout=false
 
@@ -104,8 +104,6 @@ autopass () {
  			"user") # clyde's version (Sat, 02 Mar 2024 18:03:31 CET)
  				if test -n "${stuff["login"]}"; then
  				    echo "${stuff["login"]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
- 				else
- 				    echo "${stuff[${word}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
  				fi
  				;;
  			*) printf '%s' "${stuff[${word}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -;;
@@ -175,8 +173,18 @@ typePass () {
 	x_repeat_enabled=$(xset q | awk '/auto repeat:/ {print $3}')
 	xset r off
 
-	printf '%s' "${password}" | xclip -sel c && xdotool key ctrl+shift+v
-
+	selected_option=$(echo -e "autotype\ncopypaste" | crofi -dmenu -p "autotype or copypaste?")
+	
+	case "$selected_option" in
+	    "autotype")
+	        printf '%s' "${password}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
+	        xdotool key Return
+	        ;;
+	    "copypaste")
+	        printf '%s' "${password}" | xclip -sel c && xdotool key ctrl+shift+v
+	        ;;
+	esac
+	
 	if [[ $notify == "true" ]]; then
 		if [[ "${stuff[notify]}" == "false" ]]; then
 			:
@@ -274,7 +282,7 @@ generatePass () {
 		"Yes"
 		"No")
 
-	askGenMenu=$(printf '%s\n' "${askmenu_content[@]}" | crofi -dmenu -p "Generate new Password for ${selected_password}? > ")
+	askGenMenu=$(printf '%s\n' "${askmenu_content[@]}" | crofi -dmenu -p "Generate new Password for ${selected_password}?")
 	askgen_exit=$?
 
 	if [[ $askgen_exit -eq 1 ]]; then
@@ -293,7 +301,7 @@ generatePass () {
 		"1  Yes"
 		"2  No")
 
-	symbols=$(printf '%s\n' "${symbols_content[@]}" | crofi -dmenu -p "Use Symbols? > ")
+	symbols=$(printf '%s\n' "${symbols_content[@]}" | crofi -dmenu -p "Use Symbols? ")
 	symbols_val=$?
 
 	if [[ $symbols_val -eq 1 ]]; then
@@ -308,7 +316,7 @@ generatePass () {
 	fi
 
 	HELP="<span color='$help_color'>Enter Number or hit Enter to use default length</span>"
-	length=$(printf '%s' "" | crofi -dmenu -mesg "${HELP}" -p "Password length? (Default: ${password_length}) > ")
+	length=$(printf '%s' "" | crofi -dmenu -mesg "${HELP}" -p "Password length? (Default: ${password_length})")
 	length_exit=$?
 
 	if [[ $length_exit -eq 1 ]]; then
@@ -510,7 +518,7 @@ typeMenu () {
 			checkIfPass
 			local -a keys=("${!stuff[@]}")
 			keys=("${keys[@]/$AUTOTYPE_field}")
-			typefield=$({ printf '%s' "${AUTOTYPE_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type > ")
+			typefield=$({ printf '%s' "${AUTOTYPE_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type")
 			typefield_exit=$?
 			if [[ $typefield_exit -eq 1 ]]; then
 				exit
