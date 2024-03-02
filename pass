@@ -15,7 +15,7 @@ crofi () {
 }
 
 _image_viewer () {
-	feh -
+	sxiv -
 }
 
 # We expect to find these fields in pass(1)'s output
@@ -33,7 +33,7 @@ auto_enter='false'
 notify='false'
 help_color=""
 clip=primary
-clip_clear=45
+clip_clear=15
 default_user="${ROFI_PASS_DEFAULT_USER-$(whoami)}"
 default_user2=john_doe
 password_length=12
@@ -89,7 +89,7 @@ checkIfPass () {
 autopass () {
 	x_repeat_enabled=$(xset q | awk '/auto repeat:/ {print $3}')
 	xset r off
-
+	
 	rm -f "$HOME/.cache/rofi-pass/last_used"
 	printf '%s\n' "${root}: $selected_password" > "$HOME/.cache/rofi-pass/last_used"
 	for word in ${stuff["$AUTOTYPE_field"]}; do
@@ -99,9 +99,16 @@ autopass () {
 			":delay") sleep "${delay}";;
 			":enter") xdotool key Return;;
 			":otp") printf '%s' "$(generateOTP)" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -;;
-			"pass") printf '%s' "${password}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -;;
+			"pass") echo "$password" | xclip -sel c && xdotool key ctrl+shift+v;;
  			"path") printf '%s' "${selected_password}" | rev | cut -d'/' -f1 | rev | xdotool type --clearmodifiers --file -;;
-			*) printf '%s' "${stuff[${word}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -;;
+ 			"user") # clyde's version (Sat, 02 Mar 2024 18:03:31 CET)
+ 				if test -n "${stuff["login"]}"; then
+ 				    echo "${stuff["login"]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
+ 				else
+ 				    echo "${stuff[${word}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
+ 				fi
+ 				;;
+ 			*) printf '%s' "${stuff[${word}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -;;
 		esac
 	done
 
@@ -153,7 +160,8 @@ typeUser () {
 	x_repeat_enabled=$(xset q | awk '/auto repeat:/ {print $3}')
 	xset r off
 
-	printf '%s' "${stuff[${USERNAME_field}]}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
+	printf '%s' "${stuff[${USERNAME_field}]}" | xclip -sel c && xdotool key ctrl+shift+v
+
 
 	xset r "$x_repeat_enabled"
 	unset x_repeat_enabled
@@ -167,7 +175,7 @@ typePass () {
 	x_repeat_enabled=$(xset q | awk '/auto repeat:/ {print $3}')
 	xset r off
 
-	printf '%s' "${password}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
+	printf '%s' "${password}" | xclip -sel c && xdotool key ctrl+shift+v
 
 	if [[ $notify == "true" ]]; then
 		if [[ "${stuff[notify]}" == "false" ]]; then
@@ -502,7 +510,7 @@ typeMenu () {
 			checkIfPass
 			local -a keys=("${!stuff[@]}")
 			keys=("${keys[@]/$AUTOTYPE_field}")
-			typefield=$({ printf '%s' "${AUTOTYPE_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose Field to type > ")
+			typefield=$({ printf '%s' "${AUTOTYPE_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type > ")
 			typefield_exit=$?
 			if [[ $typefield_exit -eq 1 ]]; then
 				exit
@@ -866,4 +874,5 @@ main () {
 }
 
 main "$@"
+
 
