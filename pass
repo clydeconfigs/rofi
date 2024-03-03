@@ -4,6 +4,7 @@
 # https://github.com/carnager/rofi-pass
 
 source $HOME/Media/Code/rofi/rofi_vars
+PASSWORD_STORE_DIR=~/Media/Sensible/pass/password-store
 
 # rofi-pass
 # (c) 2015 Rasmus Steinke <rasi@xssn.at>
@@ -21,10 +22,10 @@ _image_viewer () {
 # We expect to find these fields in pass(1)'s output
 URL_field='url'
 USERNAME_field='user'
-AUTOTYPE_field='autotype'
+full_input_field='full_input'
 OTPmethod_field='otp_method'
 
-default_autotype="user :tab pass"
+default_full_input="user :tab pass"
 delay=2
 wait=0.2
 xdotool_delay=12
@@ -40,7 +41,7 @@ password_length=12
 fix_layout=false
 
 # default shortcuts
-autotype="Alt+1"
+full_input="Alt+1"
 type_user="Alt+2"
 type_pass="Alt+3"
 open_url="Alt+4"
@@ -92,7 +93,7 @@ autopass () {
 	
 	rm -f "$HOME/.cache/rofi-pass/last_used"
 	printf '%s\n' "${root}: $selected_password" > "$HOME/.cache/rofi-pass/last_used"
-	for word in ${stuff["$AUTOTYPE_field"]}; do
+	for word in ${stuff["$full_input_field"]}; do
 		case "$word" in
 			":tab") xdotool key Tab;;
 			":space") xdotool key space;;
@@ -173,10 +174,10 @@ typePass () {
 	x_repeat_enabled=$(xset q | awk '/auto repeat:/ {print $3}')
 	xset r off
 
-	selected_option=$(echo -e "autotype\ncopypaste" | crofi -dmenu -p "autotype or copypaste?")
+	selected_option=$(echo -e "xdotooltype\ncopypaste" | crofi -dmenu -p "xdotooltype or copypaste?")
 	
 	case "$selected_option" in
-	    "autotype")
+	    "xdotooltype")
 	        printf '%s' "${password}" | xdotool type --delay ${xdotool_delay} --clearmodifiers --file -
 	        xdotool key Return
 	        ;;
@@ -352,7 +353,7 @@ mainMenu () {
 		unset selected_password
 
 		args=( -dmenu
-			-kb-custom-1 "${autotype}"
+			-kb-custom-1 "${full_input}"
 			-kb-custom-2 "${type_user}"
 			-kb-custom-3 "${type_pass}"
 			-kb-custom-4 "${open_url}"
@@ -426,17 +427,17 @@ mainMenu () {
 				fi
 			done < <(printf '%s\n' "${fields}")
 
-			if test "${stuff['autotype']+autotype}"; then
+			if test "${stuff['full_input']+full_input}"; then
 				:
 			else
-				stuff["autotype"]="${USERNAME_field} :tab pass"
+				stuff["full_input"]="${USERNAME_field} :tab pass"
 			fi
 		fi
 	fi
 
-	if [[ -z "${stuff["${AUTOTYPE_field}"]}" ]]; then
-		if [[ -n $default_autotype ]]; then
-			stuff["${AUTOTYPE_field}"]="${default_autotype}"
+	if [[ -z "${stuff["${full_input_field}"]}" ]]; then
+		if [[ -n $default_full_input ]]; then
+			stuff["${full_input_field}"]="${default_full_input}"
 		fi
 	fi
 	if [[ -z "${stuff["${USERNAME_field}"]}" ]]; then
@@ -483,7 +484,7 @@ clearUp () {
 }
 
 helpMenu () {
-	printf '%s' "${autotype}: Autotype
+	printf '%s' "${full_input}: full_input
 	${type_user}: Type Username
 	${type_pass}: Type Password
 	${qrcode}: Generate and display qrcode
@@ -517,8 +518,8 @@ typeMenu () {
 		if [[ $default_do == "menu" ]]; then
 			checkIfPass
 			local -a keys=("${!stuff[@]}")
-			keys=("${keys[@]/$AUTOTYPE_field}")
-			typefield=$({ printf '%s' "${AUTOTYPE_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type")
+			keys=("${keys[@]/$full_input_field}")
+			typefield=$({ printf '%s' "${full_input_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type")
 			typefield_exit=$?
 			if [[ $typefield_exit -eq 1 ]]; then
 				exit
@@ -526,11 +527,11 @@ typeMenu () {
 			case "$typefield" in
 				'') exit;;
 				'pass') sleep $wait; typePass;;
-				"${AUTOTYPE_field}") sleep $wait; autopass;;
+				"${full_input_field}") sleep $wait; autopass;;
 				*) sleep $wait; typeField
 			esac
 			clearUp
-		elif [[ $default_do == "${AUTOTYPE_field}" ]]; then
+		elif [[ $default_do == "${full_input_field}" ]]; then
 			sleep $wait; autopass
 		else
 			${default_do}
@@ -596,10 +597,10 @@ showEntry () {
 
 		stuff["pass"]=${password}
 
-		if test "${stuff['autotype']+autotype}"; then
+		if test "${stuff['full_input']+full_input}"; then
 			:
 		else
-			stuff["autotype"]="${USERNAME_field} :tab pass"
+			stuff["full_input"]="${USERNAME_field} :tab pass"
 		fi
 
 		pass_content="$(for key in "${!stuff[@]}"; do printf '%s\n' "${key}: ${stuff[$key]}"; done)"

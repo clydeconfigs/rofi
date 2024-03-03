@@ -2,4 +2,4 @@
  
 source $HOME/Media/Code/rofi/rofi_vars
 
-rofi -show calc -font 'Comic Mono 18' -theme "$theme" | awk '{print $NF}' | xclip -sel c
+rofi -show calc -font "$font" -theme "$theme" | awk '{print $NF}' | xclip -sel c
