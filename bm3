@@ -3,7 +3,7 @@
 file_path="$HOME/Media/Random/bm3/bm3_data.txt"
 
 delete_entry() {
-    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -p "Select information to delete" -width 60 -location 0 -font 'Comic Mono 18' )
+    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -p "Select information to delete" -width 60 -location 0)
     [ -n "$selected_line" ] && sed -i "/$(echo "$selected_line" | sed 's/[\/&]/\\&/g')/d" "$file_path"
 }
 
@@ -12,27 +12,27 @@ save_info() {
 }
 
 select_info() {
-    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -font 'Comic Mono 18'  -dmenu -p "Select information" -width 60 -location 0 -font 'Comic Mono 18' )
+    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi  -dmenu -p "Select information")
 
     [ -n "$selected_line" ] && entry=$(echo -n "$selected_line" | cut -d' ' -f3-) && echo "$selected_line" | grep "https://" && { 
-        choice=$(echo -e "Yes\nNo" | rofi -font 'Comic Mono 18'  -dmenu -p "Do you want to open in browser?" -i -lines 2 -width 20)
+        choice=$(echo -e "Yes\nNo" | rofi -dmenu -p "Do you want to open in browser?" -i)
         case $choice in
             "Yes") waterfox "$entry" && exit 0 ;;
             "No") echo -n "$entry" | xclip -selection clipboard ;;
         esac
     } || { 
         echo -n "$entry" | xclip -selection clipboard 
-        test $(echo "$entry" | wc -c) -gt 30 && rofi -font 'Comic Mono 18'  -e "$entry"
+        test $(echo "$entry" | wc -c) -gt 30 && rofi  -e "$entry"
     }
 }
 
 options=("show (x)" "save (b)" "delete (d)")
 
-selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "Select an option" -font 'Comic Mono 18' )
+selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "Select an option" )
 
 case $selected_option in
     "save (b)")
-        new_info=$(rofi -dmenu -p "Enter information to save" -font 'Comic Mono 18' )  
+        new_info=$(rofi -dmenu -p "Enter information to save" )  
         [ -n "$new_info" ] && save_info "$new_info"
         ;;
     "show (x)")

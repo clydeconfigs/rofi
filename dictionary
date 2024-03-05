@@ -5,10 +5,10 @@ selected_file="/home/clyde/Media/PDF and Books/Oxford English Dictionary.txt"
 if [ -n "$selected_file" ]; then
     file_path="$selected_file"
     
-    file_content=$(grep -v '^$' "$file_path" | rofi -matching regex -font 'Comic Mono 18'  -dmenu -i -p "Search in dictionary" -mesg "")
+    file_content=$(grep -v '^$' "$file_path" | rofi -matching regex -dmenu -i -p "Search in dictionary" -mesg "")
     
     if [ -n "$file_content" ]; then
-        rofi -font 'Comic Mono 18'  -e "$file_content"
+        rofi -e "$file_content"
 
         echo -n "$file_content" | xclip -selection clipboard
     fi
