@@ -1,5 +1,3 @@
 #!/bin/bash
  
-source $HOME/Media/Code/rofi/rofi_vars
-
-rofi -show calc -font "$font" -theme "$theme" | awk '{print $NF}' | xclip -sel c
+rofi -show calc | awk '{print $NF}' | xclip -sel c

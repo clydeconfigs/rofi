@@ -1,13 +1,10 @@
 #!/bin/bash
  
-source $HOME/Media/Code/rofi/rofi_vars
-
-
 current_day=$(date +"%-e")
 
 cal_output=$(cal | sed -E "s/\b$current_day\b/$current_day*/" | sed 's/^/    /')
 
-rofi -font 'Comic Mono 18' -theme "$theme" -e "
+rofi -font 'Comic Mono 18'  -e "
 $cal_output
 $(cowsay $(date +"%a, %d %b %Y %T %Z"))"
 

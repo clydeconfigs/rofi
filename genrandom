@@ -1,7 +1,4 @@
-#!/bin/bash
- 
-source $HOME/Media/Code/rofi/rofi_vars
-
+#!/bin/bash 
 
 generate_random_string() {
     local length=$1
@@ -31,4 +28,4 @@ if [[ "${strings: -1}" == $'\n' ]]; then
     strings="${strings%$'\n'}"
 fi
 
-echo -e "$words\n$strings" | rofi -dmenu -font "$font" -theme "$theme" | xclip -selection clipboard
+echo -e "$words\n$strings" | rofi -dmenu | xclip -selection clipboard

@@ -1,5 +1,3 @@
 #!/bin/bash
  
-source $HOME/Media/Code/rofi/rofi_vars
-
-rofi -font "$font" -theme "$theme" -e "$(wget -qO- ipinfo.io)"
+rofi -e "$(wget -qO- ipinfo.io)"

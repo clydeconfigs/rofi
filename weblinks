@@ -1,7 +1,4 @@
-#!/bin/bash
- 
-source $HOME/Media/Code/rofi/rofi_vars
-
+#!/bin/bash 
 
 links=$(cat <<EOF
 󰚩 chatgpt @ https://chat.openai.com/chat/
@@ -28,6 +25,6 @@ ebay thinkpads @ https://www.ebay.es/sch/i.html?_from=R40&_nkw=thinkpad&_sacat=0
 EOF
 )
 
-link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu -font "$font" -theme "$theme")
+link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu  )
 
 test -n $link || waterfox $(sed -n 's/'"$link"' @ //p' <<< "$links")

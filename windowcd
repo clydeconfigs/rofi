@@ -1,5 +1,3 @@
 #!/bin/bash
  
-source $HOME/Media/Code/rofi/rofi_vars
-
-rofi -show windowcd -theme "$theme" -font "$font"
+rofi -show windowcd  

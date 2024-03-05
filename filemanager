@@ -1,5 +1,3 @@
 #!/bin/bash
  
-source $HOME/Media/Code/rofi/rofi_vars
-
-rofi -font 'Comic Mono 18' -theme "$theme" rofi -modi "filebrowser" -show filebrowser
+rofi -font 'Comic Mono 18'  rofi -modi "filebrowser" -show filebrowser

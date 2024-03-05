@@ -3,16 +3,14 @@
 # THIS FILE IS LICENSED UNDER THE GPL-3.0
 # https://github.com/carnager/rofi-pass
 
-source $HOME/Media/Code/rofi/rofi_vars
-PASSWORD_STORE_DIR=~/Media/Sensible/pass/password-store
-
+export PASSWORD_STORE_DIR="$HOME/Media/Sensible/pass/password-store"
 # rofi-pass
 # (c) 2015 Rasmus Steinke <rasi@xssn.at>
 basecommand="$0"
 
 # set default settings
 crofi () {
-	rofi -theme "$theme" -font "$font"  -no-auto-select -i "$@"
+	rofi -no-auto-select -i "$@"
 }
 
 _image_viewer () {

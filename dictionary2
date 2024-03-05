@@ -1,12 +1,9 @@
-#!/bin/bash
- 
-source $HOME/Media/Code/rofi/rofi_vars
+#!/bin/bash 
 
-
-query=$(rofi -dmenu -i -p "Search in dictionary" -font 'Comic Mono 18' -theme "$theme" -show-icons -lines 0 -no-fixed-num-lines)
+query=$(rofi -dmenu -i -p "Search in dictionary" -font 'Comic Mono 18'  -show-icons -lines 0 -no-fixed-num-lines)
 
 results=$(grep --color=auto -i "^$query" "/home/clyde/Media/PDF and Books/Oxford English Dictionary.txt" | head -n 4 | sed G)
 
 if [ -n "$query" ]; then
-    rofi -font 'Comic Mono 18' -theme "$theme" -e "$results"
+    rofi -font 'Comic Mono 18'  -e "$results"
 fi

@@ -1,9 +1,6 @@
-#!/bin/bash
- 
-source $HOME/Media/Code/rofi/rofi_vars
+#!/bin/bash 
 
-
-query=$(rofi -dmenu -i -p "Google search" -font 'Comic Mono 18' -theme "$theme" -show-icons -lines 0 -no-fixed-num-lines)
+query=$(rofi -dmenu -i -p "Google search" -show-icons -lines 0 -no-fixed-num-lines)
 
 if [ -n "$query" ]; then
     waterfox "https://www.google.es/search?q=$query" &
