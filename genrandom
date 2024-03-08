@@ -11,43 +11,45 @@ generate_random_base64_strings() {
 }
 
 generate_random_hex_strings() {
-  head -c "$1" /dev/urandom | hexdump -e '/1 "%02x"'
-}
+  length=1024
+  hex_string=$(hexdump -n $((length / 2)) -e '/1 "%02x"' /dev/urandom)
 
-generate_random_numbers() {
-  head -c "$1" /dev/urandom | tr -dc '0-9'
+  for ((i=2; i<=length; i+=2)); do
+    echo "${hex_string:0:i}"
+  done
 }
 
 generate_random_strings() {
-  head -c "$1" /dev/urandom | tr -dc '[:alnum:]'
+  for ((i=29; i>=0; i-=3)); do
+    pwgen -syn1 $i
+  done
 }
 
 generate_random_passphrases() {
-  num_words=$1
-  passphrase=$(generate_random_words "$num_words" | tr '\n' ' ')
-  echo "$passphrase"
+  for ((i=4; i<=10; i+=1)); do
+    num_words=$i
+    passphrase=$(cat /usr/share/dict/words | shuf -n $i | tr '\n' ' ')
+    echo "$passphrase"
+  done
 }
 
-menu_options=("random words\nrandom base64 strings\nrandom hex strings\nrandom numbers\nrandom strings\nrandom passphrases")
+menu_options=("random words\nrandom base64 strings\nrandom hex strings\nrandom strings\nrandom passphrases")
 selected_option=$(echo -e "${menu_options[@]}" | rofi -dmenu -p "choose an option")
 
 case "$selected_option" in
   "random words")
-    generate_random_words | rofi -dmenu -p "random words"
+    generate_random_words | rofi -dmenu -p "random words" | tr -d '\n' | xclip -sel c
     ;;
   "random base64 strings")
-    generate_random_base64_strings | rofi -dmenu -p "random base64 strings"
+    generate_random_base64_strings | rofi -dmenu -p "random base64 strings" | tr -d '\n' | xclip -sel c
     ;;
   "random hex strings")
-    generate_random_hex_strings | rofi -dmenu -p "random hex strings"
-    ;;
-  "random numbers")
-    generate_random_numbers | rofi -dmenu -p "random numbers"
+    generate_random_hex_strings | rofi -dmenu -p "random hex strings" | tr -d '\n' | xclip -sel c
     ;;
   "random strings")
-    generate_random_strings | rofi -dmenu -p "random strings"
+    generate_random_strings | rofi -dmenu -p "random strings" | tr -d '\n' | xclip -sel c
     ;;
   "random passphrases")
-    generate_random_passphrases | rofi -dmenu -p "random passphrases"
+    generate_random_passphrases | rofi -dmenu -p "random passphrases" | tr -d '\n' | xclip -sel c
     ;;
 esac
