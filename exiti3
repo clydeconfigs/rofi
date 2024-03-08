@@ -1,9 +1,12 @@
 #!/bin/bash 
 
-options="poweroff\nexit i3\nreboot"
+options="lock i3\npoweroff\nexit i3\nreboot"
 response=$(echo -e "$options" | rofi -dmenu -p "Select an option"  )
 
 case "$response" in
+    "lock i3")
+        i3lock -c 000022
+        ;;
     "exit i3")
         i3-msg exit
         ;;

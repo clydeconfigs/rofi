@@ -4,7 +4,7 @@ current_day=$(date +"%-e")
 
 cal_output=$(cal | sed -E "s/\b$current_day\b/$current_day*/" | sed 's/^/    /')
 
-rofi -e "
-$cal_output
-$(cowsay $(date +"%a, %d %b %Y %T %Z"))"
+rofi -e "$cal_output
+
+$(date +"%a, %d %b %Y %T %Z")"
 
