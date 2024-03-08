@@ -28,7 +28,7 @@ generate_random_strings() {
 generate_random_passphrases() {
   for ((i=4; i<=10; i+=1)); do
     num_words=$i
-    passphrase=$(cat /usr/share/dict/words | shuf -n $i | tr '\n' ' ')
+    passphrase=$(cat /usr/share/dict/easy | shuf -n $i | tr '\n' ' ')
     echo "$passphrase"
   done
 }
