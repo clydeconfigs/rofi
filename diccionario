@@ -1,9 +1,0 @@
-#!/bin/bash 
-
-query=$(rofi -dmenu -i -p "Busca en el diccionario" -show-icons -lines 0 -no-fixed-num-lines)
-
-results=$(grep -i "^$query" "/home/clyde/Media/PDF and Books/diccionario/diccionario.txt" | sed G)
-
-if [ -n "$query" ]; then
-    rofi -e "$results"
-fi

@@ -1,15 +1,60 @@
 #!/bin/bash 
 
-selected_file="/home/clyde/Media/PDF and Books/Oxford English Dictionary.txt"
+function grep_search () {
+    dictionary="/home/clyde/Media/PDF and Books/Oxford English Dictionary.txt"
+        
+        if [ -n "$dictionary" ]; then
+            file_path="$dictionary"
+            
+            file_content=$(grep -v '^$' "$file_path" | rofi -matching regex -dmenu -i -p "Search in dictionary" -mesg "")
+            
+            if [ -n "$file_content" ]; then
+                rofi -e "$file_content"
+        
+                echo -n "$file_content" | xclip -selection clipboard
+            fi
+        fi
+}
 
-if [ -n "$selected_file" ]; then
-    file_path="$selected_file"
+function query_search () {
+    query=$(rofi -dmenu -i -p "Search in dictionary" -show-icons -lines 0 -no-fixed-num-lines)
     
-    file_content=$(grep -v '^$' "$file_path" | rofi -matching regex -dmenu -i -p "Search in dictionary" -mesg "")
+    results=$(grep --color=auto -i "^$query" "/home/clyde/Media/PDF and Books/Oxford English Dictionary.txt" | head -n 4 | sed G)
     
-    if [ -n "$file_content" ]; then
-        rofi -e "$file_content"
-
-        echo -n "$file_content" | xclip -selection clipboard
+    if [ -n "$query" ]; then
+        rofi -e "$results"
     fi
-fi
+}
+
+function oxf_online_search () {
+    word=$(rofi -dmenu -p "enter the word to search online")
+    
+    waterfox "https://www.oxfordlearnersdictionaries.com/definition/english/${word}_1?q=${word}"
+}
+
+function rae_online_search () {
+    word=$(rofi -dmenu -p "ingresa la palabra para buscar en línea")
+    
+    waterfox "https://dle.rae.es/${word}"
+}
+
+choice=$(echo -e "local query search\nlocal grep search\noxf online search\nrae online search" | rofi -dmenu)
+
+case "$choice" in
+  "local grep search")
+    grep_search
+    ;;
+    "local query search")
+    query_search
+    ;;
+    "oxf online search")
+    oxf_online_search
+    ;;
+    "rae online search")
+    rae_online_search
+    ;;
+esac
+    
+
+
+
