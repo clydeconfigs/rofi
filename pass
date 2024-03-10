@@ -517,7 +517,7 @@ typeMenu () {
 			checkIfPass
 			local -a keys=("${!stuff[@]}")
 			keys=("${keys[@]/$full_input_field}")
-			typefield=$({ printf '%s' "${full_input_field}" ; printf '%s\n' "${keys[@]}" | sort; } | crofi -dmenu  -p "Choose field to type")
+			typefield=$({ printf '%s\n' "${keys[@]}" | sed '/^[[:space:]]*$/d'; printf '%s' "${full_input_field}" ;} | crofi -dmenu  -p "Choose field to type")
 			typefield_exit=$?
 			if [[ $typefield_exit -eq 1 ]]; then
 				exit
