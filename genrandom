@@ -5,23 +5,26 @@ generate_random_words() {
 }
 
 generate_random_base64_strings() {
-  for ((i=3; i<=20*3; i+=3)); do
-    head -c $i /dev/urandom | base64
+  length=1024
+  random_bytes=$(head -c $((length * 3 / 4)) /dev/urandom | base64)
+  
+  for ((i=4; i<=length; i+=4)); do
+    echo "$((i/4)) $i ${random_bytes:0:i}"
   done
 }
 
 generate_random_hex_strings() {
   length=1024
-  hex_string=$(hexdump -n $((length / 2)) -e '/1 "%02x"' /dev/urandom)
+  hex_string=$(hexdump -n $((length / 2)) -e '/1 "%02X"' /dev/urandom)
 
   for ((i=2; i<=length; i+=2)); do
-    echo "${hex_string:0:i}"
+    echo "$((i/4)) $i ${hex_string:0:i}"
   done
 }
 
 generate_random_strings() {
-  for ((i=29; i>=0; i-=3)); do
-    pwgen -syn1 $i
+  for ((i=29; i>=0; i-=1)); do
+    echo $i $(pwgen -syn1 $i)
   done
 }
 
@@ -33,23 +36,23 @@ generate_random_passphrases() {
   done
 }
 
-menu_options=("random words\nrandom base64 strings\nrandom hex strings\nrandom strings\nrandom passphrases")
+menu_options=("random words\nrandom passphrases\nrandom base64 strings\nrandom hex strings\nrandom strings")
 selected_option=$(echo -e "${menu_options[@]}" | rofi -dmenu -p "choose an option")
 
 case "$selected_option" in
   "random words")
     generate_random_words | rofi -dmenu -p "random words" | tr -d '\n' | xclip -sel c
     ;;
-  "random base64 strings")
-    generate_random_base64_strings | rofi -dmenu -p "random base64 strings" | tr -d '\n' | xclip -sel c
-    ;;
-  "random hex strings")
-    generate_random_hex_strings | rofi -dmenu -p "random hex strings" | tr -d '\n' | xclip -sel c
-    ;;
-  "random strings")
-    generate_random_strings | rofi -dmenu -p "random strings" | tr -d '\n' | xclip -sel c
-    ;;
   "random passphrases")
     generate_random_passphrases | rofi -dmenu -p "random passphrases" | tr -d '\n' | xclip -sel c
+    ;;
+  "random base64 strings")
+    generate_random_base64_strings | rofi -dmenu -p "random base64 strings" | awk '{print $NF}' | tr -d '\n'  | xclip -sel c
+    ;;
+  "random hex strings")
+    generate_random_hex_strings | rofi -dmenu -p "random hex strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
+    ;;
+  "random strings")
+    generate_random_strings | rofi -dmenu -p "random strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
     ;;
 esac
