@@ -6,6 +6,7 @@ links=$(cat <<EOF
 󰊫 gmail @ https://gmail.com/
  twitter @ https://twitter.com/
  twitch @ https://www.twitch.tv/
+ github @ https://github.com/clydeconfigs/
 󰗃 youtube @ https://www.youtube.com/
  hackernews @ https://news.ycombinator.com/active
 󰫑 mastodon @ mastodon.social/
@@ -19,8 +20,6 @@ links=$(cat <<EOF
 󰟞 123movies @ https://ww2.123moviesfree.net/
 wiktionary es @ https://es.wiktionary.org/
 wiktionary en @ https://en.wiktionary.org/
-dle rae @ https://dle.rae.es/diccionario/
-oxford dictionary @ https://www.oxfordlearnersdictionaries.com/
 ebay thinkpads @ https://www.ebay.es/sch/i.html?_from=R40&_nkw=thinkpad&_sacat=0&LH_ItemCondition=3000&LH_BIN=1&LH_PrefLoc=3&_udhi=60&_sop=12
 EOF
 )
