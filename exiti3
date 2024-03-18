@@ -16,6 +16,9 @@ case "$response" in
     "reboot")
         reboot
         ;;
+    "suspend")
+        systemctl suspend
+        ;;
     "cancel")
         ;;
 esac

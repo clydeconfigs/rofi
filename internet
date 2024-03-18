@@ -1,0 +1,13 @@
+#!/bin/bash
+
+choice=$(echo -e "connect\ndisconnect" | rofi -dmenu -p "internet")
+
+case $choice in
+	"connect")
+		nmcli connection up "$(nmcli connection show | sed 1d | rofi -dmenu | awk -F' {2,}' '{print $1}')"
+		;;
+	"disconnect")
+		nmcli connection down "$(nmcli connection show | sed 1d | rofi -dmenu | awk -F' {2,}' '{print $1}')"
+		;;
+esac
+

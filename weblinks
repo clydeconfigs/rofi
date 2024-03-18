@@ -26,4 +26,4 @@ EOF
 
 link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu  )
 
-test -n $link || waterfox $(sed -n 's/'"$link"' @ //p' <<< "$links")
+test -n $link || firefox $(sed -n 's/'"$link"' @ //p' <<< "$links")

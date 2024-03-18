@@ -29,13 +29,13 @@ function query_search () {
 function oxf_online_search () {
     word=$(rofi -dmenu -p "enter the word to search online")
     
-    waterfox "https://www.oxfordlearnersdictionaries.com/definition/english/${word}_1?q=${word}"
+    firefox "https://www.oxfordlearnersdictionaries.com/definition/english/${word}_1?q=${word}"
 }
 
 function rae_online_search () {
     word=$(rofi -dmenu -p "ingresa la palabra para buscar en línea")
     
-    waterfox "https://dle.rae.es/${word}"
+    firefox "https://dle.rae.es/${word}"
 }
 
 choice=$(echo -e "local query search\nlocal grep search\noxf online search\nrae online search" | rofi -dmenu)
