@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-options="lock i3\npoweroff\nexit i3\nreboot"
+options="lock i3\npoweroff\nexit i3\nsuspend\nreboot"
 response=$(echo -e "$options" | rofi -dmenu -p "Select an option"  )
 
 case "$response" in
