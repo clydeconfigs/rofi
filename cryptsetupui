@@ -12,6 +12,9 @@ function eo
     
         if sudo st -e cryptsetup luksOpen /dev/$device $lol; and sudo mount /dev/mapper/$lol /mnt/$lol
             notify-send "[eo] mounted at /mnt/$lol"
+        else
+            sudo mount /dev/$lol /mnt/$lol
+            notify-send "[eo] mounted at /mnt/$lol"
         end
     end
 end
@@ -23,6 +26,9 @@ function ec
         set lol (basename $device)
 
         if sudo umount /dev/mapper/$lol; and sudo cryptsetup luksClose $lol
+            notify-send "[ec] unmounted"
+        else
+            sudo umount /dev/$lol
             notify-send "[ec] unmounted"
         end
     end
