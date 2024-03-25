@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/fish
 
 function eo
     if test (count $argv) -eq 1

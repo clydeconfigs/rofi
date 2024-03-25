@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 input=$(rofi -dmenu) || exit 1
 rofi -e "$($input)" || exit 1

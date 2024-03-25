@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/bash 
 
 function grep_search () {
     dictionary="/home/clyde/Media/Random/PDF and Books/Oxford English Dictionary.txt"
@@ -54,7 +54,3 @@ case "$choice" in
     rae_online_search
     ;;
 esac
-    
-
-
-

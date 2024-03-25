@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/bash 
 
 file_path="$HOME/Media/Random/bm3/bm3_data.txt"
 

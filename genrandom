@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 generate_random_words() {
   cat /usr/share/dict/words | shuf -n 1000

@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/bash 
 
 query=$(rofi -dmenu -i -p "Google search" -show-icons -lines 0 -no-fixed-num-lines)
 

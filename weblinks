@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/bash 
 
 links=$(cat <<EOF
 󰚩 chatgpt @ https://chat.openai.com/chat/
