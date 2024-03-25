@@ -38,6 +38,8 @@ end
 
 set device $(lsblk -l | sed 1d | grep -v -e nvme -e boot -e root | rofi -dmenu | awk '{print $1}')
 
+test -z "$device" && exit 1
+
 set mountpoint $(lsblk -l | awk '{print $7}' | grep "$device")
 
 if test -z "$mountpoint"
