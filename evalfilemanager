@@ -1,0 +1,32 @@
+#!/bin/bash
+
+options=(
+    "$HOME/Media/Random/Pics"
+    "$HOME/Media/Random/nn"
+    "$HOME/Media/Random/nn/kpop"
+)
+
+selected_dir=$(printf '%s\n' "${options[@]}" | rofi -dmenu -p "Select a directory:")
+
+if [ -n "$selected_dir" ]; then
+    directories=$(find "$selected_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n")
+    selected_subdir=$(echo "$directories" | rofi -dmenu -p "Select a directory:")
+
+    if [ -n "$selected_subdir" ]; then
+        user_command=$(rofi -dmenu -p "Enter a command to run on '$selected_subdir': ")
+
+        if [ -n "$user_command" ]; then
+            cd "$selected_dir/$selected_subdir" || exit 1
+            eval "$user_command"
+        else
+            echo "No command provided. Exiting..."
+            exit 1
+        fi
+    else
+        echo "No directory selected. Exiting..."
+        exit 1
+    fi
+else
+    echo "No directory selected. Exiting..."
+    exit 1
+fi
