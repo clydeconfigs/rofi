@@ -35,7 +35,7 @@ generate_random_passphrases() {
   for ((i=4; i<=10; i+=1)); do
     num_words=$i
     shuffled_words=$(shuf -e $wordlist)
-    passphrase=$(echo "$shuffled_words" | head -n $i | tr '\n' ' ')
+    passphrase=$(echo "$shuffled_words" | head -n $i | tr '\n' ' ' | sed 's/.\{1\}$//')
     echo "$passphrase"
   done
 }
