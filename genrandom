@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 
+words="https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt"
+
 generate_random_words() {
-  cat /usr/share/dict/words | shuf -n 1000
+  curl $words | shuf
 }
 
 generate_random_base64_strings() {
@@ -29,14 +31,23 @@ generate_random_strings() {
 }
 
 generate_random_passphrases() {
+  wordlist=$(curl $words)
   for ((i=4; i<=10; i+=1)); do
     num_words=$i
-    passphrase=$(cat /usr/share/dict/easy | shuf -n $i | tr '\n' ' ')
+    shuffled_words=$(shuf -e $wordlist)
+    passphrase=$(echo "$shuffled_words" | head -n $i | tr '\n' ' ')
     echo "$passphrase"
   done
 }
 
-menu_options=("random words\nrandom passphrases\nrandom base64 strings\nrandom hex strings\nrandom strings")
+generate_alphanumeric() {
+  for ((i=4; i<=100; i+=1)); do
+    echo -n "$i. "
+    python3 -c "import random,string,sys; print(''.join(random.choices(string.ascii_lowercase + string.digits, k=int(sys.argv[1]) if len(sys.argv) > 1 else 4)))" $i
+  done
+}
+
+menu_options=("random words\nrandom passphrases\nrandom base64 strings\nrandom hex strings\nrandom strings\nrandom alphanumeric")
 selected_option=$(echo -e "${menu_options[@]}" | rofi -dmenu -p "choose an option")
 
 case "$selected_option" in
@@ -54,5 +65,8 @@ case "$selected_option" in
     ;;
   "random strings")
     generate_random_strings | rofi -dmenu -p "random strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
+    ;;
+  "random alphanumeric")
+    generate_alphanumeric | rofi -dmenu -p "random alphanumeric" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
     ;;
 esac

@@ -18,6 +18,7 @@ links=$(cat <<EOF
  instagram @ https://www.instagram.com/
  pinterest @ https://www.pinterest.com/
 󰟞 123movies @ https://ww2.123moviesfree.net/
+yt trending @ https://www.youtube.com/feed/trending?gl=US&app=desktop
 wiktionary es @ https://es.wiktionary.org/
 wiktionary en @ https://en.wiktionary.org/
 ebay thinkpads @ https://www.ebay.es/sch/i.html?_from=R40&_nkw=thinkpad&_sacat=0&LH_ItemCondition=3000&LH_BIN=1&LH_PrefLoc=3&_udhi=60&_sop=12
