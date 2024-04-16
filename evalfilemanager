@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 options=(
     "$HOME/Media/Random/Pics"

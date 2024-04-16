@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-cat $HOME/Media/Random/emoji | rofi -dmenu | cut -b1-4 | tr -d '\n' | xclip -sel c
+cat $HOME/Media/Random/emoji | rofi -dmenu | awk '{print $1}' | tr -d '\n' | xclip -sel c
