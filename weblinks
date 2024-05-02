@@ -2,7 +2,8 @@
 
 links=$(cat <<EOF
 󰚩 chatgpt @ https://chat.openai.com/chat/
- bing ai @ https://www.bing.com/search?q=Bing+AI&showconv=1&FORM=hpcodx/
+ bing @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
+ gemini @ https://gemini.google.com/app
 󰊫 gmail @ https://gmail.com/
  twitter @ https://twitter.com/
  twitch @ https://www.twitch.tv/
