@@ -38,19 +38,18 @@ function rae_online_search () {
     firefox "https://dle.rae.es/${word}"
 }
 
-choice=$(echo -e "local query search\nlocal grep search\noxf online search\nrae online search" | rofi -dmenu)
+function wiktionary () {
+    word=$(rofi -dmenu -p "ingresa la palabra para buscar en línea")
+    
+    firefox "https://es.wiktionary.org/wiki/${word}"
+}
+
+choice=$(echo -e "local query search\noxf online search\nrae online search\nwiktionary search\nGREP search" | rofi -dmenu)
 
 case "$choice" in
-  "local grep search")
-    grep_search
-    ;;
-    "local query search")
-    query_search
-    ;;
-    "oxf online search")
-    oxf_online_search
-    ;;
-    "rae online search")
-    rae_online_search
-    ;;
+    "GREP search")grep_search;;
+    "local query search")query_search;;
+    "oxf online search")oxf_online_search;;
+    "rae online search")rae_online_search;;
+    "wiktionary search")wiktionary;;
 esac

@@ -2,22 +2,23 @@
 
 links=$(cat <<EOF
 󰚩 chatgpt @ https://chat.openai.com/chat/
- bing @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
- gemini @ https://gemini.google.com/app
-󰊫 gmail @ https://gmail.com/
+󰇥 duckduckgo ai @ https://duckduckgo.com/?t=h_&q=-&ia=chat
+ gemini ai @ https://gemini.google.com/app
+ bing ai @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
+󰗃 youtube @ https://www.youtube.com/
  twitter @ https://twitter.com/
  twitch @ https://www.twitch.tv/
- github @ https://github.com/clydeconfigs/
-󰗃 youtube @ https://www.youtube.com/
- hackernews @ https://news.ycombinator.com/active
+ reddit @ https://www.reddit.com/
+ pinterest @ https://www.pinterest.com/
 󰫑 mastodon @ mastodon.social/
+ hackernews @ https://news.ycombinator.com/active
 󰖬 wikipedia @ https://en.wikipedia.org/
+ github @ https://github.com/clydeconfigs/
+󰊫 gmail @ https://gmail.com/
  amazon @ amazon.es
  gnu manuals @ https://www.gnu.org/manual/manual.html
  arch linux @ https://bbs.archlinux.org/search.php?action=show_replies
- reddit @ https://www.reddit.com/
  instagram @ https://www.instagram.com/
- pinterest @ https://www.pinterest.com/
 󰟞 123movies @ https://ww2.123moviesfree.net/
 yt trending @ https://www.youtube.com/feed/trending?gl=US&app=desktop
 wiktionary es @ https://es.wiktionary.org/
