@@ -16,6 +16,12 @@
 ## Connect to the headset
 #bluetoothctl connect $headset_mac
 
+# BEGIN 17 may 2024 addition:
+which bluetoothctl || sudo pacman -S bluez
+bluetoothctl scan on
+systemctl enable bluetooth --now
+# END
+
 if ! bluetoothctl show | grep -q "Powered: yes"; then
     rofi -e "Bluetooth is not enabled. Please enable Bluetooth and try again."
     exit 1
