@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-connection="$(nmcli connection show | sed 1d | rofi -dmenu | awk -F' {2,}' '{print $1}')"
+title=$(nmcli connection show --active | grep -v loopback | sed 1d | sed 's/  .*$//')
+connection="$(nmcli connection show | sed 1d | rofi -dmenu -p "Connected to $title" | awk -F' {2,}' '{print $1}')"
 test -z "$connection" && exit 1
 nmcli connection show --active | sed 1d | awk -F' {2,}' '{print $1}' | while read -r connection; do nmcli connection down "$connection"; done
 nmcli connection up "$connection"
