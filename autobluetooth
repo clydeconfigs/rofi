@@ -23,14 +23,14 @@ systemctl enable bluetooth --now
 # END
 
 if ! bluetoothctl show | grep -q "Powered: yes"; then
-    rofi -e "Bluetooth is not enabled. Please enable Bluetooth and try again."
+    notify-send "Bluetooth is not enabled. Please enable Bluetooth and try again."
     exit 1
 fi
 
 headset_mac=$(bluetoothctl devices | grep -Eo "([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})" | head -1)
 
 if [ -z "$headset_mac" ]; then
-    rofi -e "No Bluetooth devices found. Please make sure your headset is discoverable."
+    notify-send "No Bluetooth devices found. Please make sure your headset is discoverable."
     exit 1
 fi
 

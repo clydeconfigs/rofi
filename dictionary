@@ -9,7 +9,7 @@ function grep_search () {
             file_content=$(grep -v '^$' "$file_path" | rofi -matching regex -dmenu -i -p "Search in dictionary" -mesg "")
             
             if [ -n "$file_content" ]; then
-                rofi -e "$file_content"
+                notify-send "$file_content"
         
                 echo -n "$file_content" | xclip -selection clipboard
             fi
@@ -22,7 +22,7 @@ function query_search () {
     results=$(grep --color=auto -i "^$query" "/home/clyde/Media/Random/PDF and Books/Oxford English Dictionary.txt" | head -n 4 | sed G)
     
     if [ -n "$query" ]; then
-        rofi -e "$results"
+        notify-send "$results"
     fi
 }
 
