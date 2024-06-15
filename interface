@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-rofic="$HOME/Media/Code/rofi/"
+rofic="$HOME/media/code/rofi/"
 eval "$rofic"/$(ls "$rofic" | rofi -dmenu)

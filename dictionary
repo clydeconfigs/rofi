@@ -1,7 +1,7 @@
 #!/usr/bin/bash 
 
 function grep_search () {
-    dictionary="/home/clyde/Media/Random/PDF and Books/Oxford English Dictionary.txt"
+    dictionary="/home/clyde/media/random/PDF and Books/Oxford English Dictionary.txt"
         
         if [ -n "$dictionary" ]; then
             file_path="$dictionary"
@@ -19,7 +19,7 @@ function grep_search () {
 function query_search () {
     query=$(rofi -dmenu -i -p "Search in dictionary" -show-icons -lines 0 -no-fixed-num-lines)
     
-    results=$(grep --color=auto -i "^$query" "/home/clyde/Media/Random/PDF and Books/Oxford English Dictionary.txt" | head -n 4 | sed G)
+    results=$(grep --color=auto -i "^$query" "/home/clyde/media/random/PDF and Books/Oxford English Dictionary.txt" | head -n 4 | sed G)
     
     if [ -n "$query" ]; then
         notify-send "$results"
