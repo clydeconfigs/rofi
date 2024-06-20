@@ -1,8 +1,8 @@
 #!/usr/bin/bash 
 
 links=$(cat <<EOF
-󰚩 chatgpt @ https://chat.openai.com/chat/
 󰇥 duckduckgo ai @ https://duckduckgo.com/?t=h_&q=-&ia=chat
+󰚩 chatgpt @ https://chat.openai.com/chat/
  gemini ai @ https://gemini.google.com/app
  bing ai @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
 󰗃 youtube @ https://www.youtube.com/
