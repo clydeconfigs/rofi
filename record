@@ -1,0 +1,8 @@
+test -e /tmp/xscreenrecorder-pid && {
+	kill -2 $(cat /tmp/xscreenrecorder-pid)
+	rm /tmp/xscreenrecorder-pid
+} || {
+	cd $HOME/recordings
+	xscreenrecorder
+}
+
