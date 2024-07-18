@@ -1,0 +1,14 @@
+test -e /tmp/xscreenrecorder-pid && {
+	kill -2 $(cat /tmp/xscreenrecorder-pid) && {
+		notify-send "👍 recording stopped successfully"
+	} || {
+		notify-send "something bad happened"
+	}
+	rm /tmp/xscreenrecorder-pid
+} || {
+	cd $HOME/recordings
+	notify-send -t 1000 -i "" "🔴 started recording..."
+	mpv $HOME/media/code/share/recording.mp3 &
+	xscreenrecorder
+}
+
