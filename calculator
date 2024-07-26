@@ -1,3 +1,10 @@
 #!/usr/bin/bash
  
-rofi -show calc | awk '{print $NF}' | xclip -sel c
+rofi -show calc -theme-str '
+listview {
+	columns: 1;
+} 
+window {
+	width: 24%;
+}' 
+| awk '{print $NF}' | xclip -sel c

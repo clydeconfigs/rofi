@@ -27,6 +27,6 @@ ebay thinkpads @ https://www.ebay.es/sch/i.html?_from=R40&_nkw=thinkpad&_sacat=0
 EOF
 )
 
-link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu  )
+link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu -theme-str 'window {width: 20%;}' )
 
 test -n $link || firefox $(sed -n 's/'"$link"' @ //p' <<< "$links")

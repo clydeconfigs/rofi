@@ -10030,6 +10030,7 @@ generate_random_strings() {
   done
 }
 
+# obsolete
 generate_random_passphrases() {
   wordlist=$(echo $words)
   for ((i=4; i<=10; i+=1)); do
@@ -10047,27 +10048,24 @@ generate_alphanumeric() {
   done
 }
 
-menu_options=("random words\nrandom passphrases\nrandom base64 strings\nrandom hex strings\nrandom strings\nrandom alphanumeric")
-selected_option=$(echo -e "${menu_options[@]}" | rofi -dmenu -p "choose an option")
+menu_options=(" words\n base64 strings\n hex strings\n alphanumeric\n full ascii")
+selected_option=$(echo -e "${menu_options[@]}" | rofi -theme-str 'window {width: 12%;}' -dmenu -p "(")
 
 case "$selected_option" in
-  "random words")
-    generate_random_words | rofi -dmenu -multi-select -ballot-unselected-str " " -ballot-selected-str "x" -p "random words" | tr '\n' ' ' | rev | cut -c 2- | rev | tr -d '\n'| xclip -sel c
+  " words")
+    generate_random_words | rofi -theme-str 'window {width: 17%;}' -dmenu -multi-select -ballot-unselected-str " " -ballot-selected-str "x" -p "random words" | tr '\n' ' ' | rev | cut -c 2- | rev | tr -d '\n'| xclip -sel c
     ;;
-  "random passphrases")
-    generate_random_passphrases | rofi -dmenu -p "random passphrases" | tr -d '\n' | xclip -sel c
-    ;;
-  "random base64 strings")
+  " base64 strings")
     generate_random_base64_strings | rofi -dmenu -p "random base64 strings" | awk '{print $NF}' | tr -d '\n'  | xclip -sel c
     ;;
-  "random hex strings")
+  " hex strings")
     generate_random_hex_strings | rofi -dmenu -p "random hex strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
     ;;
-  "random strings")
-    generate_random_strings | rofi -dmenu -p "random strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
-    ;;
-  "random alphanumeric")
+  " alphanumeric")
     generate_alphanumeric | rofi -dmenu -p "random alphanumeric" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
+    ;;
+  " full ascii")
+    generate_random_strings | rofi -dmenu -p "random strings" | awk '{print $NF}' | tr -d '\n' | xclip -sel c
     ;;
 esac
 

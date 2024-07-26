@@ -1,24 +1,22 @@
 #!/usr/bin/bash 
 
-options="lock i3\npoweroff\nexit i3\nsuspend\nreboot"
-response=$(echo -e "$options" | rofi -dmenu -p "Select an option"  )
+options="⏻ poweroff\n reboot\n󰒲 suspend\n󰗽 exit i3\n󰷛 lock screen"
+response=$(echo -e "$options" | rofi -theme-str 'window {width: 8%;}' -dmenu -p "("  )
 
 case "$response" in
-    "lock i3")
-        i3lock -c 000022
+    "󰷛 lock screen")
+        i3lock -c 002222
         ;;
-    "exit i3")
+    "󰗽 logout")
         i3-msg exit
         ;;
-    "poweroff")
+    "⏻ poweroff")
         sudo shutdown now
         ;;
-    "reboot")
+    " reboot")
         reboot
         ;;
-    "suspend")
+    "󰒲 suspend")
         systemctl suspend
-        ;;
-    "cancel")
         ;;
 esac
