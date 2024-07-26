@@ -6,5 +6,4 @@ listview {
 } 
 window {
 	width: 24%;
-}' 
-| awk '{print $NF}' | xclip -sel c
+}' | awk '{print $NF}' | xclip -sel c

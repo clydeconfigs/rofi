@@ -3,7 +3,7 @@
 file_path="$HOME/media/random/bm3/bm3_data.txt"
 
 delete_entry() {
-    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -p "select information to delete" -width 60 -location 0)
+    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -theme-str 'listview {columns: 2;} window {width:64%;}' -width 60 -location 0)
     [ -n "$selected_line" ] && sed -i "/$(echo "$selected_line" | sed 's/[\/&]/\\&/g')/d" "$file_path"
 }
 
@@ -12,7 +12,7 @@ save_info() {
 }
 
 select_info() {
-    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | sed 's/^.\{21\}//' | rofi -dmenu "select information")
+    selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -theme-str 'listview {columns: 2;} window {width:64%;}' | sed 's/^.\{21\}//')
     
     [ -n "$selected_line" ] && entry=$(echo -n "$selected_line") && echo "$selected_line" | grep "https://" && { 
         choice=$(echo -e "Yes\nNo" | rofi -dmenu -p "do you want to open in browser?" -i)
@@ -28,7 +28,7 @@ select_info() {
 
 options=("show (x)" "save (b)" "delete (d)")
 
-selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "select an option" )
+selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "(" -theme-str 'window {width:6%;}' )
 
 case $selected_option in
     "save (b)")
