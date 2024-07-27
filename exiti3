@@ -1,6 +1,6 @@
 #!/usr/bin/bash 
 
-options="⏻ poweroff\n reboot\n󰒲 suspend\n󰗽 exit i3\n󰷛 lock screen"
+options="⏻ poweroff\n reboot\n󰒲 suspend\n󰗽 logout\n󰷛 lock screen"
 response=$(echo -e "$options" | rofi -theme-str 'window {width: 8%;}' -dmenu -p "("  )
 
 case "$response" in
