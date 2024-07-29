@@ -29,18 +29,21 @@ function query_search () {
 
 function oxf_online_search () {
     word=$(rofi -dmenu -p "enter the word to search online")
+    test -z $word && exit 1
     
     firefox "https://www.oxfordlearnersdictionaries.com/definition/english/${word}_1?q=${word}"
 }
 
 function rae_online_search () {
     word=$(rofi -dmenu -p "ingresa la palabra para buscar en línea")
+    test -z $word && exit 1
     
     firefox "https://dle.rae.es/${word}"
 }
 
 function wiktionary () {
     word=$(rofi -dmenu -p "ingresa la palabra para buscar en línea")
+    test -z $word && exit 1
     
     firefox "https://es.wiktionary.org/wiki/${word}"
 }
