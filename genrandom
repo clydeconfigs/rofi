@@ -10049,7 +10049,7 @@ generate_alphanumeric() {
 }
 
 menu_options=(" words\n base64 strings\n hex strings\n alphanumeric\n full ascii")
-selected_option=$(echo -e "${menu_options[@]}" | rofi -theme-str 'window {width: 12%;}' -dmenu -p "(")
+selected_option=$(echo -e "${menu_options[@]}" | rofi -theme-str 'window {width: 8%;}' -dmenu -p "(")
 
 case "$selected_option" in
   " words")

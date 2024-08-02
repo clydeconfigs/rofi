@@ -28,7 +28,7 @@ select_info() {
 
 options=("show (x)" "save (b)" "delete (d)")
 
-selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "(" -theme-str 'window {width:6%;}' )
+selected_option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -p "(" -theme-str 'window {width:8%;}' )
 
 case $selected_option in
     "save (b)")
