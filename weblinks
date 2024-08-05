@@ -3,27 +3,23 @@
 links=$(cat <<EOF
 󰇥 duckduckgo ai @ https://duckduckgo.com/?t=h_&q=-&ia=chat
 󰚩 chatgpt @ https://chat.openai.com/chat/
- gemini ai @ https://gemini.google.com/app
  bing ai @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
+󰊫 gmail @ https://gmail.com/
 󰗃 youtube @ https://www.youtube.com/
  twitter @ https://twitter.com/
  twitch @ https://www.twitch.tv/
+ instagram @ https://www.instagram.com/
  reddit @ https://www.reddit.com/
  pinterest @ https://www.pinterest.com/
 󰫑 mastodon @ mastodon.social/
  hackernews @ https://news.ycombinator.com/active
 󰖬 wikipedia @ https://en.wikipedia.org/
  github @ https://github.com/clydeconfigs/
-󰊫 gmail @ https://gmail.com/
  amazon @ amazon.es
+ ebay @ https://www.ebay.es
  gnu manuals @ https://www.gnu.org/manual/manual.html
  arch linux @ https://bbs.archlinux.org/search.php?action=show_replies
- instagram @ https://www.instagram.com/
 󰟞 123movies @ https://ww2.123moviesfree.net/
-yt trending @ https://www.youtube.com/feed/trending?gl=US&app=desktop
-wiktionary es @ https://es.wiktionary.org/
-wiktionary en @ https://en.wiktionary.org/
-ebay thinkpads @ https://www.ebay.es/sch/i.html?_from=R40&_nkw=thinkpad&_sacat=0&LH_ItemCondition=3000&LH_BIN=1&LH_PrefLoc=3&_udhi=60&_sop=12
 EOF
 )
 
