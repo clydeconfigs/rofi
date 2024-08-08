@@ -20,9 +20,12 @@ links=$(cat <<EOF
  gnu manuals @ https://www.gnu.org/manual/manual.html
  arch linux @ https://bbs.archlinux.org/search.php?action=show_replies
 󰟞 123movies @ https://ww2.123moviesfree.net/
+ intel @ https://ark.intel.com/content/www/us/en/ark/search.html
 EOF
 )
 
 link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu -theme-str 'window {width: 20%;}' )
 
-test -n $link || firefox $(sed -n 's/'"$link"' @ //p' <<< "$links")
+test -n $link || {
+	firefox $(sed -n 's/'"$link"' @ //p' <<< "$links")
+}

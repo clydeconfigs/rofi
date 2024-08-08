@@ -1632,4 +1632,4 @@ emoji="😀 grinning face
 🏴󠁧󠁢󠁷󠁬󠁳󠁿 flag: Wales 
 "
 
-echo "$emoji" | rofi -dmenu -theme-str 'listview {columns: 3;} window {width: 40%;}' -i -multi-select -ballot-unselected-str " " -ballot-selected-str "x" | awk '{print $1}' | tr -d '\n' | xclip -sel c
+echo "$emoji" | rofi -dmenu -theme-str 'listview {columns: 3;} window {width: 50%;} configuration {font: "Sans 18";}' -i -multi-select -ballot-unselected-str " " -ballot-selected-str "x" | awk '{print $1}' | tr -d '\n' | xclip -sel c
