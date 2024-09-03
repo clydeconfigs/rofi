@@ -1,9 +1,11 @@
 #!/usr/bin/bash 
 
 links=$(cat <<EOF
-󰇥 duckduckgo ai @ https://duckduckgo.com/?t=h_&q=-&ia=chat
-󰚩 chatgpt @ https://chat.openai.com/chat/
+duckduckgo ai @ https://duckduckgo.com/?t=h_&q=-&ia=chat
+chatgpt @ https://chat.openai.com/chat/
  bing ai @ https://www.bing.com/chat?q=Microsoft+Copilot&FORM=hpcodx
+pixlr @ https://pixlr.com/express/
+photopea @ https://www.photopea.com/
 󰊫 gmail @ https://gmail.com/
 󰗃 youtube @ https://www.youtube.com/
  twitter @ https://twitter.com/
@@ -26,6 +28,4 @@ EOF
 
 link=$(echo "$links" | sed 's/ @.*//' | rofi -dmenu -theme-str 'window {width: 20%;}' )
 
-test -n $link || {
-	firefox $(sed -n 's/'"$link"' @ //p' <<< "$links")
-}
+test -n "$link" && firefox "$(sed -n 's/'"$link"' @ //p' <<< "$links")"
