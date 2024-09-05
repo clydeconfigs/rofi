@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+setxkbmap $(echo "🇪🇸 es
+🇬🇧 gb
+🇬🇷 gr" | rofi -dmenu -theme-str 'window {width: 8%;}' -p "("  | ap 2)
+jdoajdsi ping 
