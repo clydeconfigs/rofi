@@ -5,10 +5,12 @@ file_path="$HOME/media/random/bm3/bm3_data.txt"
 delete_entry() {
     selected_line=$(cat "$file_path" | sed '1!G;h;$!d' | rofi -dmenu -theme-str 'listview {columns: 2;} window {width:64%;}' -width 60 -location 0)
     [ -n "$selected_line" ] && sed -i "/$(echo "$selected_line" | sed 's/[\/&]/\\&/g')/d" "$file_path"
+    cd "$HOME/media/random/bm3"; git add -A; git commit -m 'bm3'
 }
 
 save_info() {
     echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" >> "$file_path"
+    cd "$HOME/media/random/bm3"; git add -A; git commit -m 'bm3'
 }
 
 select_info() {
