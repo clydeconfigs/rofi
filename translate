@@ -3,5 +3,5 @@
 query=$(rofi -dmenu -i -p "Translate" -show-icons -lines 0 -no-fixed-num-lines)
 
 if [ -n "$query" ]; then
-    firefox "https://translate.google.es/?sl=auto&tl=es&text=$query" &
+    firefox "https://www.deepl.com/en/translator#es/en/$query" &
 fi
