@@ -19,7 +19,7 @@ select_info() {
     [ -n "$selected_line" ] && entry=$(echo -n "$selected_line") && echo "$selected_line" | grep "https://" && { 
         choice=$(echo -e "Yes\nNo" | rofi -dmenu -p "do you want to open in browser?" -i)
         case $choice in
-            "Yes") firefox "$entry" && exit 0 ;;
+            "Yes") firefox "$(echo $entry | grep -o https://.*)" && exit 0 ;;
             "No") echo -n "$entry" | xclip -selection clipboard ;;
         esac
     } || { 

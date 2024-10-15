@@ -3,5 +3,5 @@
 query=$(rofi -dmenu -i -p "Google search" -show-icons -lines 0 -no-fixed-num-lines)
 
 if [ -n "$query" ]; then
-    firefox "https://www.google.es/search?q=$query" &
+    firefox --private-window "https://www.google.es/search?q=$query" &
 fi

@@ -1,7 +1,9 @@
 #!/usr/bin/bash
- 
-query=$(rofi -dmenu -i -p "Translate" -show-icons -lines 0 -no-fixed-num-lines)
+#  
+# query=$(rofi -dmenu -i -p "Translate" -show-icons -lines 0 -no-fixed-num-lines)
+# 
+# if [ -n "$query" ]; then
+#     firefox "$query" &
+# fi
 
-if [ -n "$query" ]; then
-    firefox "https://www.deepl.com/en/translator#es/en/$query" &
-fi
+firefox "https://www.bing.com/translator" &
