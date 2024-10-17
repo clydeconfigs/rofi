@@ -48,7 +48,7 @@ function wiktionary () {
     firefox "https://es.wiktionary.org/wiki/${word}"
 }
 
-choice=$(echo -e " local query\n oxf online\n rae online\n wiktionary\nGREP" | rofi -dmenu -theme-str 'window {width: 8%;}'  -dmenu -p "(")
+choice=$(echo -e " local query\n oxf online\n rae online\n wiktionary\nGREP" | rofi -dmenu -theme-str 'window {width: 8%;padding: 10px;}'  -dmenu -p "(")
 
 case "$choice" in
     " local query")query_search;;
